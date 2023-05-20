@@ -169,7 +169,9 @@ if __name__ == '__main__':
 
         except Exception as exc:
                 print(exc)
-                st.error(f"Error al cargar el modelo: {exc}")
+                st.error(f"Error al cargar el modelo")
+                with st.expander("Ver detalles del error"):
+                    st.error(exc)
                 modelo_cargado = False
 
 
