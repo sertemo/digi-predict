@@ -4,4 +4,3 @@ pandas
 Pillow
 matplotlib
 scikit-learn
-io
