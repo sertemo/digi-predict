@@ -11,3 +11,5 @@ Puedes ver la imagen que has cargado mediante la pestaña desplegable "Ver image
 
 Las predicciones se guardan en un historial que puedes ver desplegando la pestaña de "Ver historial de predicciones".
 
+Enlace a la app [aquí](https://digi-predict.streamlit.app/).
+
