@@ -148,7 +148,7 @@ if __name__ == '__main__':
         model_name = st.selectbox(
             """ Escoge el modelo para las predicciones """,
             MODEL_NAMES,
-            index=1,
+            index=0,
         )
         
         try:
