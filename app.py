@@ -169,7 +169,7 @@ if __name__ == '__main__':
 
         except Exception as exc:
                 print(exc)
-                st.error(f"Error al cargar el modelo: {exc.with_traceback()}")
+                st.error(f"Error al cargar el modelo: {exc}")
                 modelo_cargado = False
 
 
