@@ -208,9 +208,10 @@ if __name__ == '__main__':
             st.metric("Predicción",pred)
             st.metric("Confianza:",conf)
 
-            actualizar_historico_predicciones(model_name,uploaded_file,pred,conf)
-            with st.expander("Ver histórico de predicciones"):
-                plotear_historico_predicciones()
+            actualizar_historico_predicciones(model_name,uploaded_file,pred,conf)    
+
+    with st.expander("Ver histórico de predicciones"):
+        plotear_historico_predicciones()
 
             
 
