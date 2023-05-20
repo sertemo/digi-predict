@@ -36,8 +36,8 @@ def imagen_nula(img):
         st.stop()
     
 def shape_no_valida(img):
-    if img.shape != (28,28,1):
-        st.error(f"Error: La dimensión de la imagen debe ser (28,28,1) y no {img.shape}")
+    if img.shape != (28,28):
+        st.error(f"Error: La dimensión de la imagen debe ser (28,28) y no {img.shape}")
         st.stop()
 
 def validar_imagen(uploaded_file):
