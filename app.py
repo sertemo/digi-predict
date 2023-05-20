@@ -167,7 +167,8 @@ if __name__ == '__main__':
                 except:
                     st.error("Matriz de Confusión no disponible.")
 
-        except:
+        except Exception as exc:
+                print(exc)
                 st.error("Error al cargar el modelo")
                 modelo_cargado = False
 
