@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
     st.title(":blue[Digi]Predict App")
     st.markdown("""
-     Aplicación para evaluar diferentes modelos entrenados con el dataset [**MNIST**](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv). que contiene
+     Aplicación para evaluar diferentes modelos entrenados con el dataset [**MNIST**](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv) que contiene
                 60.000 muestras correspondientes a dígitos del 0 al 9 escritos a mano.
                 Los modelos tratan de resolver problemas de *clasificación múltiple supervisada*.
                 """)
