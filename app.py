@@ -202,16 +202,16 @@ if __name__ == '__main__':
         st.info("Es necesario cargar una imagen para predecir.")
         
     else:
+        if modelo_cargado:
+            if st.button("Lanzar predicción"):
+                with st.spinner("Pensando..."):
+                    pred, conf = predecir(digit,model)
+                
+                st.markdown(f"**Modelo**: :blue[*{model_name}*]")
+                st.metric("Predicción",pred)
+                st.metric("Confianza:",conf)
 
-        if st.button("Lanzar predicción") and modelo_cargado:
-            with st.spinner("Pensando..."):
-                pred, conf = predecir(digit,model)
-            
-            st.markdown(f"**Modelo**: :blue[*{model_name}*]")
-            st.metric("Predicción",pred)
-            st.metric("Confianza:",conf)
-
-            actualizar_historico_predicciones(model_name,uploaded_file,pred,conf)    
+                actualizar_historico_predicciones(model_name,uploaded_file,pred,conf)    
 
     with st.expander("Ver histórico de predicciones"):
         plotear_historico_predicciones()
