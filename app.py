@@ -59,7 +59,8 @@ def predecir(digit,model):
 @st.cache_resource(show_spinner=False)
 def cargar_modelo(model_name):
     """ Carga el modelo desde disco a partir de su nombre """
-    import keras.models 
+    import keras.models
+
     return keras.models.load_model(ruta_models(model_name))
 
 def describir_modelo():
@@ -154,6 +155,7 @@ if __name__ == '__main__':
         try:
             with st.spinner("Cargando modelo"):
                 model = cargar_modelo(model_name)
+                modelo_cargado = True
 
             with st.expander("Ver modelo"):
                 describir_modelo()
@@ -167,6 +169,7 @@ if __name__ == '__main__':
 
         except:
                 st.error("Error al cargar el modelo")
+                modelo_cargado = False
 
 
     st.header(""" Cargar una imagen """)
@@ -200,7 +203,7 @@ if __name__ == '__main__':
         
     else:
 
-        if st.button("Lanzar predicción"):
+        if st.button("Lanzar predicción") and modelo_cargado:
             with st.spinner("Pensando..."):
                 pred, conf = predecir(digit,model)
             
