@@ -1,5 +1,5 @@
 # DigiPredict App
-Aplicación web para cargar y evaluar modelos entrenados con el dataset de dígitos escritos a mano [MNIST](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
+Aplicación web para cargar y evaluar modelos entrenados con el dataset de dígitos escritos a mano[MNIST](https://www.kaggle.com/datasets/oddrationale/mnist-in-csv).
 
 ## Cómo funciona
 El funcionamiento es muy sencillo:
@@ -11,8 +11,7 @@ Puedes ver la imagen que has cargado mediante la pestaña desplegable "Ver image
 
 Las predicciones se guardan en un historial que puedes ver desplegando la pestaña de "Ver historial de predicciones".
 
-Ir a la app [aquí](https://digi-predict.streamlit.app/)
-
 ## Actualizaciones
 27/05/2023 - Añadido modelo Random Forest de 500 estimadores.
+27/05/2023 - Añadido model KNN con 5 neighbors.
 

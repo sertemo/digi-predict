@@ -21,7 +21,8 @@ st.set_page_config(
 MODEL_NAMES = ("mnist_KerasConv_digits",
             "mnist_KerasConv_digits_nomax",
             "mnist_KerasDense_digits",
-            "mnist_RandomForest_sklearn")
+            "mnist_RandomForest_sklearn",
+            "mnist_KNN_sklearn",)
 
 MODELS_FOLDER = "models"
 IMG_FOLDER = "img"
@@ -99,6 +100,14 @@ def describir_modelo():
             4 capas lineales activadas con función no lineal relu."""
         )
     
+    elif model_name == "mnist_KNN_sklearn":
+
+        st.caption(
+            """ Este tipo de clasificador es denominado KNN o K Nearest Neighbors en inglés y
+            consiste en aprenderse el dataset sobre el que ha sido entrenado y las relaciones de cada feature con sus 5 vecinos
+            Las características del modelo se ven en el desplegable."""
+        )
+
     elif model_name == "mnist_RandomForest_sklearn":
 
         st.caption(
