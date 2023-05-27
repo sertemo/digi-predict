@@ -12,6 +12,6 @@ Puedes ver la imagen que has cargado mediante la pestaña desplegable "Ver image
 Las predicciones se guardan en un historial que puedes ver desplegando la pestaña de "Ver historial de predicciones".
 
 ## Actualizaciones
-27/05/2023 - Añadido modelo Random Forest de 500 estimadores.
+27/05/2023 - Añadido modelo Random Forest de 500 estimadores.<br>
 27/05/2023 - Añadido model KNN con 5 neighbors.
 
