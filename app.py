@@ -22,7 +22,8 @@ MODEL_NAMES = ("mnist_KerasConv_digits",
             "mnist_KerasConv_digits_nomax",
             "mnist_KerasDense_digits",
             "mnist_RandomForest_sklearn",
-            "mnist_KNN_sklearn",)
+            "mnist_KNN_sklearn",
+            "mnist_LogisticRegression_sklearn")
 
 MODELS_FOLDER = "models"
 IMG_FOLDER = "img"
@@ -114,6 +115,13 @@ def describir_modelo():
             """ Este modelo está entrenado para distinguir dígitos
             escritos a mano. El tipo de clasificador utilizado es de tipo 'Random Forest`
             que consiste en múltiples árboles de decisión entrenados simultáneamente y procesados en paralelo.
+            Los parámetros del modelo se ven en el desplegable."""
+        )
+
+    elif model_name == "mnist_LogisticRegression_sklearn":
+
+        st.caption(
+            """ El tipo de modelo utilizado es un clasificador de tipo 'Logistic Regression' para multi clases.
             Los parámetros del modelo se ven en el desplegable."""
         )
 

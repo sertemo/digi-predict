@@ -15,5 +15,6 @@ Ver la app [aquí](https://digi-predict.streamlit.app/).
 
 ## Actualizaciones
 27/05/2023 - Añadido modelo Random Forest de 500 estimadores.<br>
-27/05/2023 - Añadido model KNN con 5 neighbors.<br>
+27/05/2023 - Añadido modelo KNN con 5 neighbors.<br>
+27/05/2023 - Añadido modelo Logistic Regression.<br>
 
