@@ -11,6 +11,8 @@ Puedes ver la imagen que has cargado mediante la pestaña desplegable "Ver image
 
 Las predicciones se guardan en un historial que puedes ver desplegando la pestaña de "Ver historial de predicciones".
 
+Ir a la app [aquí](https://digi-predict.streamlit.app/)
+
 ## Actualizaciones
 27/05/2023 - Añadido modelo Random Forest de 500 estimadores.
 
