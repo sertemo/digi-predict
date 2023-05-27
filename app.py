@@ -5,6 +5,9 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
+import joblib
+import sklearn
+import keras.models
 
 #Configuración de la app
 st.set_page_config(
@@ -17,10 +20,13 @@ st.set_page_config(
 #Parametros
 MODEL_NAMES = ("mnist_KerasConv_digits",
             "mnist_KerasConv_digits_nomax",
-            "mnist_KerasDense_digits",)
+            "mnist_KerasDense_digits",
+            "mnist_RandomForest_sklearn")
 
 MODELS_FOLDER = "models"
 IMG_FOLDER = "img"
+
+#st.session_state
 
 #Funciones auxiliares
 def ruta_models(model_name):
@@ -48,18 +54,25 @@ def validar_imagen(uploaded_file):
     
     #Reshepeamos y escalamos.
     #A los modelos de capas dense tambien les alimentamos con esta shape
-    #y les añadimos una capa flatten
+    
     X = (img.reshape(1,28,28,1).astype(np.float32) - 127.5 ) / (127.5)
+
+    if "sklearn" in model_name:
+        X = (img.reshape(1,-1).astype(np.float32) - 127.5 ) / (127.5)
 
     return X, img
 
 def predecir(digit,model):
+    if "sklearn" in model_name:
+        return model.predict(digit)[0], round(np.max(model.predict_proba(digit))*100,2)
     return np.argmax(model.predict(digit)),round(max(model.predict(digit)[0])*100,2)
     
 @st.cache_resource(show_spinner=False)
 def cargar_modelo(model_name):
     """ Carga el modelo desde disco a partir de su nombre """
-    import keras.models
+
+    if "sklearn" in model_name:
+        return joblib.load(ruta_models(model_name) + ".joblib")
 
     return keras.models.load_model(ruta_models(model_name))
 
@@ -85,6 +98,15 @@ def describir_modelo():
             escritos a mano. La Red Neuronal utilizada es de tipo 'Dense'.
             4 capas lineales activadas con función no lineal relu."""
         )
+    
+    elif model_name == "mnist_RandomForest_sklearn":
+
+        st.caption(
+            """ Este modelo está entrenado para distinguir dígitos
+            escritos a mano. El tipo de clasificador utilizado es de tipo 'Random Forest`
+            que consiste en múltiples árboles de decisión entrenados simultáneamente y procesados en paralelo.
+            Los parámetros del modelo se ven en el desplegable."""
+        )
 
 def init_session():
     if "predicciones" not in st.session_state:
@@ -98,6 +120,7 @@ def init_session():
             
 @st.cache_data(show_spinner=False)
 def cargar_matriz_confusion(model_name):
+    print(f"{ruta_models(model_name)}.npy")
     return np.load(f"{ruta_models(model_name)}.npy")
 
 @st.cache_data(show_spinner=False)
@@ -159,8 +182,14 @@ if __name__ == '__main__':
 
             with st.expander("Ver modelo"):
                 describir_modelo()
-                st.write("Número de parámetros:",f":green[{model.count_params():,}]")
-                cargar_imagen_modelo(model_name)                
+                if "Keras" in model_name:
+                    st.write("Número de parámetros:",f":green[{model.count_params():,}]")
+                    cargar_imagen_modelo(model_name)                
+
+                
+                if "sklearn" in model_name:
+                    st.write(model.get_params())
+
                 st.subheader("Matriz de confusión")
                 try:
                     plotear_matriz_confusion((cargar_matriz_confusion(model_name)))
