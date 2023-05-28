@@ -46,8 +46,8 @@ def get_dir_size(path):
 
 MODELS_SIZE = {
     model:
-    get_dir_size(ruta_models(model)) if "Keras" in model 
-    else os.path.getsize(ruta_models(model+".joblib")) for model in MODEL_NAMES
+    round(get_dir_size(ruta_models(model))/1e6,2) if "Keras" in model 
+    else round(os.path.getsize(ruta_models(model+".joblib"))/ 1e6,2) for model in MODEL_NAMES
 }
 
 def ruta_img(model_name):
@@ -140,7 +140,7 @@ def describir_modelo():
             """ El tipo de modelo utilizado es un clasificador de tipo 'Logistic Regression' para multi clases.
             Los parámetros del modelo se ven en el desplegable."""
         )
-    st.write(f" Tamaño del modelo en bytes: :green[{MODELS_SIZE[model_name]:,}]")
+    st.write(f" Tamaño del modelo: :green[{MODELS_SIZE[model_name]}] Mb")
 
 def init_session():
     if "predicciones" not in st.session_state:
@@ -182,7 +182,7 @@ def plotear_historico_predicciones():
             df_historico = pd.DataFrame(
                 st.session_state["predicciones"][model]
             )
-            st.write(f":blue[{model}] (Tamaño: *{MODELS_SIZE[model]:,}* bytes)")
+            st.write(f":blue[{model}] (Tamaño: *{MODELS_SIZE[model]}* Mb)")
             st.dataframe(df_historico)
 
 #cuerpo principal
