@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 import joblib
-import sklearn
 import keras.models
 
 #Configuración de la app
@@ -34,6 +33,23 @@ IMG_FOLDER = "img"
 def ruta_models(model_name):
     return os.path.join(MODELS_FOLDER,model_name)
 
+def get_dir_size(path):
+    """ Función para calcular el peso de los modelos Keras """
+    total = 0
+    with os.scandir(path) as it:
+        for entry in it:
+            if entry.is_file():
+                total += entry.stat().st_size
+            elif entry.is_dir():
+                total += get_dir_size(entry.path)
+    return total
+
+MODELS_SIZE = {
+    model:
+    get_dir_size(ruta_models(model)) if "Keras" in model 
+    else os.path.getsize(ruta_models(model+".joblib")) for model in MODEL_NAMES
+}
+
 def ruta_img(model_name):
     return os.path.join(MODELS_FOLDER,IMG_FOLDER,model_name)
 
@@ -42,7 +58,7 @@ def imagen_nula(img):
     if (np.count_nonzero(img == 0) > 0.95 * img.size) or (np.count_nonzero(img == 0) < 0.10 * img.size):
         st.error("Error: La imagen no es correcta. Es posible que no exista ningún dibujo válido.")
         st.stop()
-    
+
 def shape_no_valida(img):
     if img.shape != (28,28):
         st.error(f"Error: La dimensión de la imagen debe ser (28,28) y no {img.shape}")
@@ -124,6 +140,7 @@ def describir_modelo():
             """ El tipo de modelo utilizado es un clasificador de tipo 'Logistic Regression' para multi clases.
             Los parámetros del modelo se ven en el desplegable."""
         )
+    st.write(f" Tamaño del modelo en bytes: :green[{MODELS_SIZE[model_name]:,}]")
 
 def init_session():
     if "predicciones" not in st.session_state:
@@ -165,7 +182,7 @@ def plotear_historico_predicciones():
             df_historico = pd.DataFrame(
                 st.session_state["predicciones"][model]
             )
-            st.write(f":blue[{model}]")
+            st.write(f":blue[{model}] (Tamaño: *{MODELS_SIZE[model]:,}* bytes)")
             st.dataframe(df_historico)
 
 #cuerpo principal
@@ -201,7 +218,7 @@ if __name__ == '__main__':
                 describir_modelo()
                 if "Keras" in model_name:
                     st.write("Número de parámetros:",f":green[{model.count_params():,}]")
-                    cargar_imagen_modelo(model_name)                
+                    cargar_imagen_modelo(model_name)     
 
                 
                 if "sklearn" in model_name:
